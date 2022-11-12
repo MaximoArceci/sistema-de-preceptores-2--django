@@ -21,6 +21,19 @@ def datos(division):
                         fechas_justificadas.append(i.fecha)
                         faltas_justificadas += 1
 
+            if len(fechas_totales) == 0:
+                fechas_totales = "-"
+            else:
+                for i in fechas_totales:
+                    fechas_totales[fechas_totales.index(i)] = str(i)
+                fechas_totales = str(fechas_totales)[1:-1].replace("'","").replace("-", "/").replace(","," - ")
+
+            if len(fechas_justificadas) == 0:
+                fechas_justificadas = "-"
+            else:
+                for i in fechas_justificadas:
+                    fechas_justificadas[fechas_justificadas.index(i)] = str(i)
+                fechas_justificadas = str(fechas_justificadas)[1:-1].replace("'","").replace("-", "/").replace(","," - ")
 
             diccionario = {
                 "dni": alumno.dni,
@@ -33,6 +46,9 @@ def datos(division):
             lista_alumnos.append(diccionario)
     print (lista_alumnos)
     return lista_alumnos
+
+def index(request):
+    return render(request, "index.html")
 
 def quintoA(request):
     return render(request, 'modelo.html', {"lista":datos("5A"), "division": "5A"})
