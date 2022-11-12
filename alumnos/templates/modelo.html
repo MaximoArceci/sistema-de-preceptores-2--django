@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{division}}</title>
+</head>
+
+<body>
+    <table>
+        
+    {% for i in lista %}
+    
+        <tr>
+            <td>{{i.dni}}</td>
+            <td>{{i.nombre}}</td>
+            <td>{{i.faltas_totales}}</td>
+            <td>{{i.faltas_justificadas}}</td>
+            <td>{{i.fechas_totales}}</td>
+            <td>{{i.fechas_justificadas}}</td>
+        </tr>
+    
+    {% endfor %}
+    
+    <table>
+</body>
+</html>

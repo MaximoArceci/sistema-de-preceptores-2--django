@@ -26,5 +26,5 @@ class Inasistencias(models.Model):
     alumno = models.ForeignKey(Alumnos, null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.fecha, self.alumno
+        return str(self.fecha) + " - " + str(self.alumno)
 
