@@ -9,6 +9,7 @@ class Alumnos(models.Model):
     fecha_nacimiento = models.DateField(verbose_name="fecha de nacimiento")
     sexo = models.CharField(max_length=1, choices=sexos, default="X")
     curso = models.CharField(max_length=2, choices=cursos)
+    
 
     def nombre_completo(self):
         return"{}, {}".format(self.apellidos, self.nombre)
@@ -28,3 +29,9 @@ class Inasistencias(models.Model):
     def __str__(self):
         return str(self.fecha) + " - " + str(self.alumno)
 
+class Cursos(models.Model):
+    año = models.CharField(max_length=1)
+    division = models.CharField(max_length=1)
+
+    def __str__(self):
+        return self.año + "º" + self.division
