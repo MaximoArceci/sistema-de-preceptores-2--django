@@ -44,7 +44,6 @@ def datos(division):
                 "fechas_justificadas": fechas_justificadas                
             }
             lista_alumnos.append(diccionario)
-    print (lista_alumnos)
     return lista_alumnos
 
 def index(request):
