@@ -31,6 +31,7 @@ class Inasistencias(models.Model):
     fecha = models.DateField()
     justificada = models.BooleanField(default=False)
     alumno = models.ForeignKey(Alumnos, null=True, blank=True, on_delete=models.CASCADE)
+    tarde = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.fecha) + " - " + str(self.alumno)
