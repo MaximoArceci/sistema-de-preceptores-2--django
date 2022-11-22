@@ -6,7 +6,7 @@ class Cursos(models.Model):
     division = models.CharField(max_length=1)
 
     def __str__(self):
-        return self.año + self.division
+        return str(self.año) + str(self.division)
 
 class Alumnos(models.Model):
     dni = models.IntegerField()
