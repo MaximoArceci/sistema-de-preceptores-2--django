@@ -13,5 +13,5 @@ class CursosSerializer(serializers.ModelSerializer):
 
 class InasistenciasSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Cursos
+        model = Inasistencias
         fields = ("fecha", "justificada", "alumno", "tarde")
