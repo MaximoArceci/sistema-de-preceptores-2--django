@@ -9,7 +9,7 @@ class Cursos(models.Model):
         return str(self.año) + str(self.division)
 
 class Alumnos(models.Model):
-    dni = models.IntegerField()
+    dni = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=40)
     apellidos = models.CharField(max_length=70)
     fecha_nacimiento = models.DateField(verbose_name="fecha de nacimiento")
