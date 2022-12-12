@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,10 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-vl58rv(mww#)$+5r%3)7%!8m4ov5c52+_t#pf2h9kx(riftek0'
+# SECRET_KEY = 'django-insecure-vl58rv(mww#)$+5r%3)7%!8m4ov5c52+_t#pf2h9kx(riftek0'
 SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in  os.environ
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = []
 
