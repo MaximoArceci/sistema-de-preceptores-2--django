@@ -35,6 +35,7 @@ if RENDER_EXTERNAL_HOSTNAME:
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +47,31 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_yasg',
 ]
+
+JAZZMIN_SETTINGS = {
+    'site_title': 'Preceptores',
+    "site_header": "Controles",
+    'site_logo': 'img/logo.png',
+    "site_brand": "Configuración",
+    "login_logo": 'img/login_logo.png',
+    "copyright": "Sistema de preceptores - Maximo Alvarez Arceci",
+    'welcome_sign': 'Inicio de sesión',
+    'icons': {
+        'auth.user': "fas fa-user",
+        'alumnos.Alumnos': "fas fa-user",
+        'alumnos.Cursos': "fas fa-users",
+        'alumnos.Inasistencias': "fas fa-book",
+        'auth.Group': 'fas fa-users',
+    },
+    'topmenu_links': [
+        {'app': 'alumnos'},
+        {'model': 'alumnos.Alumnos'},
+        {'model': 'alumnos.Cursos'},
+        {'model': 'alumnos.Inasistencias'}
+    ]
+}
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -121,7 +147,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'#'en-us'
 
 TIME_ZONE = 'UTC'
 
