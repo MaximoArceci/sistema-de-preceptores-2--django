@@ -4,7 +4,7 @@ from .models import Alumnos, Inasistencias, Cursos
 
 @admin.register(Alumnos)
 class AlumnosAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'apellidos', 'curso')
+    list_display = ('nombre', 'apellidos', 'curso', 'admin_photo')
     ordering = ('apellidos', 'nombre')
     list_display_links = ('nombre',)
     search_fields = ('apellidos', 'nombre', 'dni')
