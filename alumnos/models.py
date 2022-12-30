@@ -1,7 +1,6 @@
 from django.db import models
 from .choices import sexos, cursos
-from django.utils.safestring import mark_safe
-
+# Create your models here.
 class Cursos(models.Model):
     año = models.CharField(max_length=1)
     division = models.CharField(max_length=1)
@@ -16,14 +15,7 @@ class Alumnos(models.Model):
     fecha_nacimiento = models.DateField(verbose_name="fecha de nacimiento")
     sexo = models.CharField(max_length=1, choices=sexos, default="X")
     curso = models.ForeignKey(Cursos, null=True, blank=True, on_delete=models.CASCADE)
-    foto = models.ImageField(null=True, blank=True)
-
-    def admin_photo(self):
-        try:
-            return mark_safe('<img src="{}" width="100" />'.format(self.foto.url))
-        except:
-            return self.foto
-
+    
 
     def nombre_completo(self):
         return"{}, {}".format(self.apellidos, self.nombre)
