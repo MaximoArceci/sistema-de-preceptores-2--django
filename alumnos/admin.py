@@ -1,6 +1,26 @@
 from django.contrib import admin
-from .models import Alumnos, Inasistencias, Cursos
+from django import forms
+from .models import Alumnos, Inasistencias, Cursos, models
 # Register your models here.
+
+class BinaryFileInput(forms.ClearableFileInput):
+
+    def is_initial(self, value):
+        return bool(value)
+    
+    def format_value(self, value):
+        if self.is_initial(value):
+            return f'{len(value)} bytes'    
+    
+    def value_from_datadict(self, data, files, name):
+        upload = super().value_from_datadict(data, files, name)
+        if upload:
+            return upload.read()
+
+class MyModelAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        models.BinaryField: {'widget':BinaryFileInput()}
+    }
 
 @admin.register(Alumnos)
 class AlumnosAdmin(admin.ModelAdmin):

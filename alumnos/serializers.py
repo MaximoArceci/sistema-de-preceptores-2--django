@@ -4,7 +4,7 @@ from .models import Alumnos, Cursos, Inasistencias
 class AlumnosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Alumnos
-        fields = ('dni', 'nombre', 'apellidos', 'fecha_nacimiento', 'sexo', 'curso')
+        fields = ('dni', 'nombre', 'apellidos', 'fecha_nacimiento', 'sexo', 'curso', "foto")
 
 class CursosSerializer(serializers.ModelSerializer):
     class Meta:
