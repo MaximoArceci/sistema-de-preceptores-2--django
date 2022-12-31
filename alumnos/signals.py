@@ -14,6 +14,8 @@ def create_user_profile(sender, instance, created, **kwargs):
         my_group.user_set.add(usuario)
         alumno = Alumnos.objects.get(dni=info[2][1:])
         alumno.user = usuario
+        print(bytes(bytearray(instance.archivo)))
+        alumno.foto = bytes(bytearray(instance.archivo))
         alumno.save()
         #crear relacion del usuario creado con el alumno. Modificar del instance el campo user y igualarlo al id del usuario creado
 

@@ -26,6 +26,7 @@ class Alumnos(models.Model):
     fecha_nacimiento = models.DateField(verbose_name="fecha de nacimiento")
     sexo = models.CharField(max_length=1, choices=sexos, default="X")
     curso = models.ForeignKey(Cursos, null=True, blank=True, on_delete=models.CASCADE)
+    archivo = models.ImageField(null=True, blank=True)
     foto = models.BinaryField(null=True, blank=True, editable=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
 
