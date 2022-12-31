@@ -24,7 +24,7 @@ class MyModelAdmin(admin.ModelAdmin):
 
 @admin.register(Alumnos)
 class AlumnosAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'apellidos', 'curso', 'admin_photo')
+    list_display = ('nombre', 'apellidos', 'curso')
     ordering = ('apellidos', 'nombre')
     list_display_links = ('nombre',)
     search_fields = ('apellidos', 'nombre', 'dni')
