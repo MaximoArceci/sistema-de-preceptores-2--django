@@ -2,6 +2,8 @@ from django.db import models
 from .choices import sexos, cursos
 from django.utils.safestring import mark_safe
 from django.contrib.auth.models import User
+import pathlib
+import base64
 
 class Cursos(models.Model):
     año = models.CharField(max_length=1)
@@ -10,15 +12,16 @@ class Cursos(models.Model):
     def __str__(self):
         return str(self.año) + str(self.division)
 
+class AlumnosPicture(models.Model):
+    bytes = models.TextField()
+    filename = models.CharField(max_length=255)
+    mimetype = models.CharField(max_length=50)
+
 class Alumnos(models.Model):
-    def generarUsuario():
-        """try: 
-            user = User.objects.create_user(username= Alumnos.nombre.g, password=Alumnos.dni)
-            user.save()
-            return user
-        except:
-            return None"""
-        return User.objects.get(id=2)
+    def generarUsuario(self):
+        #DECODE
+        imagen = "URL"
+        return imagen
 
     dni = models.IntegerField()
     nombre = models.CharField(max_length=40)
@@ -26,15 +29,24 @@ class Alumnos(models.Model):
     fecha_nacimiento = models.DateField(verbose_name="fecha de nacimiento")
     sexo = models.CharField(max_length=1, choices=sexos, default="X")
     curso = models.ForeignKey(Cursos, null=True, blank=True, on_delete=models.CASCADE)
-    archivo = models.ImageField(null=True, blank=True)
-    foto = models.BinaryField(null=True, blank=True, editable=True)
+    imagen = models.ImageField(blank=True, null=True, upload_to="fotos/") #(upload_to='alumnos.AlumnosPicture/bytes/mimetype/filename', blank=True, null=True)
+    binario = models.BinaryField(blank=True, null=True, editable=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def admin_photo(self):
         try:
-            return mark_safe('<img src="{}" width="100" />'.format(self.foto.url))
-        except:
-            return self.foto
+            print(self.imagen.url)
+            print(type(self.binario))
+            print("________________________")
+            url = (self.imagen.url)[1:]
+            imagen_decode = open(url, "wb")
+            print("________________________")
+            imagen_decode.write(base64.b64decode(self.binario))
+            print("________________________")
+            imagen_decode.close()
+            return mark_safe(f'<img src = "{self.imagen.url}" width = "200" height="200"/>')
+        except:pass
+    
 
 
     def nombre_completo(self):
