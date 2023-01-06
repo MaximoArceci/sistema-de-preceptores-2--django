@@ -31,11 +31,16 @@ class Alumnos(models.Model):
 
     def admin_photo(self):
         try:
-            url = (self.imagen.url)[1:]
+            """url = (self.imagen.url)[1:]
             imagen_decode = open(url, "wb")
             imagen_decode.write(base64.b64decode(self.binario))
             imagen_decode.close()
-            return mark_safe(f'<img src = "{self.imagen.url}" width = "200" height="200"/>')
+            return mark_safe(f'<img src = "{self.imagen.url}" width = "200" height="200"/>')"""
+            imagen_decode = open("media/fotos/imagen.jpeg", "wb")
+            imagen_decode.write(base64.b64decode(self.binario))
+            imagen_decode.close()
+            return mark_safe(f'<img src = "/media/fotos/imagen.jpeg" width = "200" height="200"/>')
+            
         except:
             return mark_safe(f'<img src = "/media/no_borrar/no_image.jpeg" width = "200" height="200"/>')
     

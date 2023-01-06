@@ -11,6 +11,7 @@ def create_user_profile(sender, instance, created, update_fields, **kwargs):
     info = str(instance).split(",")
     if created:
         usuario = User.objects.create_user(username=(info[0] + "_" + info[1][1:]), password=info[2][1:])
+        print(info[2][1:])
         usuario.save()
         my_group = Group.objects.get(name='Alumnos') 
         my_group.user_set.add(usuario)
@@ -66,4 +67,5 @@ def save_user_profile(sender, instance, **kwargs):
 i = 0
 @receiver(post_init, sender=Alumnos)
 def info_upload(sender, instance, **kwargs):
-    print("---> init: ",instance)
+    #print("---> init: ",instance)
+    pass
