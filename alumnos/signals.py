@@ -1,8 +1,7 @@
 from django.dispatch import receiver
-from django.db.models.signals import pre_save, post_save, pre_delete
+from django.db.models.signals import post_save, post_delete, post_init
 import base64
 import os
-from django.core.files.base import ContentFile
 
 from .models import User, Alumnos
 from django.contrib.auth.models import Group
@@ -23,11 +22,21 @@ def create_user_profile(sender, instance, created, update_fields, **kwargs):
         os.remove(("media/"+str(instance.imagen)))
         #crear relacion del usuario creado con el alumno. Modificar del instance el campo user y igualarlo al id del usuario creado
     else:
-        print(("media/"+str(instance.imagen)))
-        if os.path.exists("media/"+str(instance.imagen)):
+        usuario = User.objects.get(username=instance.user)
+        usuario.username = (info[0] + "_" + info[1][1:])
+        usuario.save()
+        try:
+            alumno = Alumnos.objects.get(dni=info[2][1:])
+            with open(("media/"+str(instance.imagen)), "rb") as img:
+                alumno.binario = base64.b64encode(img.read())
+                alumno.save()
+                os.remove(("media/"+str(instance.imagen)))
+        except:
+            pass
+        """if os.path.exists("media/"+str(instance.imagen)):
             print (instance.binario)
             os.remove(("media/"+str(instance.imagen)))
-        """if os.path.exists("media/"+str(instance.imagen)):
+        if os.path.exists("media/"+str(instance.imagen)):
             alumno = Alumnos.objects.get(dni=info[2][1:])
             with open(("media/"+str(instance.imagen)), "rb") as img:
                 print("segundo open")
@@ -36,8 +45,9 @@ def create_user_profile(sender, instance, created, update_fields, **kwargs):
                 os.remove(("media/"+str(instance.imagen)))"""
         """except:
                 print("no pudo abrir")"""
+    
 
-@receiver(pre_delete, sender=Alumnos)
+@receiver(post_delete, sender=Alumnos)
 def delete_related_journal(sender, instance, **kwargs):
     info = str(instance).split(",")
     try:
@@ -53,3 +63,7 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()"""
 
 # Crear eliminar user profile. Asi, cuando se elimine un alumno, tambien se elimine su respectivo 
+i = 0
+@receiver(post_init, sender=Alumnos)
+def info_upload(sender, instance, **kwargs):
+    print("---> init: ",instance)

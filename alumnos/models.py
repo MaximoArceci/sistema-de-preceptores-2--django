@@ -11,11 +11,7 @@ class Cursos(models.Model):
 
     def __str__(self):
         return str(self.año) + str(self.division)
-
-class AlumnosPicture(models.Model):
-    bytes = models.TextField()
-    filename = models.CharField(max_length=255)
-    mimetype = models.CharField(max_length=50)
+        
 
 class Alumnos(models.Model):
     def generarUsuario(self):
@@ -35,17 +31,13 @@ class Alumnos(models.Model):
 
     def admin_photo(self):
         try:
-            print(self.imagen.url)
-            print(type(self.binario))
-            print("________________________")
             url = (self.imagen.url)[1:]
             imagen_decode = open(url, "wb")
-            print("________________________")
             imagen_decode.write(base64.b64decode(self.binario))
-            print("________________________")
             imagen_decode.close()
             return mark_safe(f'<img src = "{self.imagen.url}" width = "200" height="200"/>')
-        except:pass
+        except:
+            return mark_safe(f'<img src = "/media/no_borrar/no_image.jpeg" width = "200" height="200"/>')
     
 
 
