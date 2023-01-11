@@ -31,18 +31,13 @@ class Alumnos(models.Model):
 
     def admin_photo(self):
         try:
-            """url = (self.imagen.url)[1:]
-            imagen_decode = open(url, "wb")
-            imagen_decode.write(base64.b64decode(self.binario))
-            imagen_decode.close()
-            return mark_safe(f'<img src = "{self.imagen.url}" width = "200" height="200"/>')"""
-            imagen_decode = open("media/fotos/imagen.jpeg", "wb")
-            imagen_decode.write(base64.b64decode(self.binario))
-            imagen_decode.close()
-            return mark_safe(f'<img src = "/media/fotos/imagen.jpeg" width = "200" height="200"/>')
+            if len(self.binario) < 10:
+                return mark_safe(f'<img src = "/media/no_borrar/no_image.jpeg" width = "100" height="100"/>')
+            tipoD = str(self.imagen).split(".")
+            return mark_safe(f'<img style="width:100px;height:100px"; src="data:image/{tipoD[-1]};base64,{str(self.binario)[2:-1]}">')
             
         except:
-            return mark_safe(f'<img src = "/media/no_borrar/no_image.jpeg" width = "200" height="200"/>')
+            return mark_safe(f'<img src = "/media/no_borrar/no_image.jpeg" width = "100" height="100"/>')
     
 
 

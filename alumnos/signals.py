@@ -10,17 +10,20 @@ from django.contrib.auth.models import Group
 def create_user_profile(sender, instance, created, update_fields, **kwargs):
     info = str(instance).split(",")
     if created:
-        usuario = User.objects.create_user(username=(info[0] + "_" + info[1][1:]), password=info[2][1:])
+        usuario = User.objects.create_user(username=(info[0].replace(" ", "_") + "_" + info[1][1:]), password=info[2][1:])
         print(info[2][1:])
         usuario.save()
         my_group = Group.objects.get(name='Alumnos') 
         my_group.user_set.add(usuario)
         alumno = Alumnos.objects.get(dni=info[2][1:])
         alumno.user = usuario
-        with open(("media/"+str(instance.imagen)), "rb") as img:
-            alumno.binario = base64.b64encode(img.read())
-        alumno.save()
-        os.remove(("media/"+str(instance.imagen)))
+        try:
+            with open(("media/"+str(instance.imagen)), "rb") as img:
+                alumno.binario = base64.b64encode(img.read())
+            alumno.save()
+            os.remove(("media/"+str(instance.imagen)))
+        except:
+            pass
         #crear relacion del usuario creado con el alumno. Modificar del instance el campo user y igualarlo al id del usuario creado
     else:
         usuario = User.objects.get(username=instance.user)
@@ -43,8 +46,8 @@ def create_user_profile(sender, instance, created, update_fields, **kwargs):
                 print("segundo open")
                 alumno.binario = base64.b64encode(img.read())
                 alumno.save()
-                os.remove(("media/"+str(instance.imagen)))"""
-        """except:
+                os.remove(("media/"+str(instance.imagen)))""""""
+        """"""except:
                 print("no pudo abrir")"""
     
 
@@ -61,11 +64,11 @@ def delete_related_journal(sender, instance, **kwargs):
 
 """@receiver(post_save, sender=User, dispatch_uid='user.save_user_profile')
 def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()"""
+    instance.profile.save()
 
 # Crear eliminar user profile. Asi, cuando se elimine un alumno, tambien se elimine su respectivo 
 i = 0
 @receiver(post_init, sender=Alumnos)
 def info_upload(sender, instance, **kwargs):
     #print("---> init: ",instance)
-    pass
+    pass"""

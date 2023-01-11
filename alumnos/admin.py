@@ -63,7 +63,7 @@ class CursosAdmin(admin.ModelAdmin):
     list_display = ('año', 'division')
     list_filter = ('division',)
     ordering = ('-año', 'division')
-    exclude = ('año', 'division')
+    #exclude = ('año', 'division')
 
 
 @admin.register(Inasistencias)
