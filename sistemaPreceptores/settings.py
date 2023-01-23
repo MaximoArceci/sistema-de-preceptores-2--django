@@ -120,12 +120,27 @@ WSGI_APPLICATION = 'sistemaPreceptores.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+BINARYFIELD_HACK_ENGINES = (
+    'django.db.backends.postgresql',
+)
 DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
-        conn_max_age=600
-    )
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "preceptoresDatabase",
+        "USER": "maximoArceci",
+        "PASSWORD": "passpassword",
+        "HOST": "postgresql",  # set in docker-compose.yml
+        "PORT": 5432,  # default postgres port
+    }
 }
+
+
+"""DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}"""
 
 
 # Password validation

@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    command: python manage.py runserver 0.0.0.0:3000
+    restart: always
+  
+  postgresql:
+    image: 'bitnami/postgresql:latest'
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRESQL_USERNAME=maximoArceci
+      - POSTGRESQL_PASSWORD=passpassword
+      - POSTGRESQL_DATABASE=preceptoresDatabase
+    volumes:
+      - 'postgresql_data:/info'
+volumes:
+  postgresql_data:
+    driver: local
